@@ -1,84 +1,92 @@
-Current Price Comparison - Investing.com
-Overview
+# Current Price Comparison - Investing.com
 
-This project is a Python automation tool that fetches the current market prices of major stocks and cryptocurrencies from Investing.com using Playwright. The script generates a visual comparison chart and a text summary of the prices for quick analysis.
+**Current Price Comparison** is a Python automation tool that fetches live market prices of major stocks and cryptocurrencies from [Investing.com](https://www.investing.com/) using **Playwright**. The tool generates a visual comparison chart and a text summary for quick analysis.
+
+---
+
+## Supported Symbols
 
 Currently, the project supports the following symbols:
 
-MSFT (Microsoft)
+* **MSFT** – Microsoft
+* **META** – Meta Platforms / Facebook
+* **BTC** – Bitcoin
+* **AAPL** – Apple
+* **NVDA** – Nvidia
+* **TSLA** – Tesla
 
-META (Meta Platforms / Facebook)
+---
 
-BTC (Bitcoin)
+## Features
 
-AAPL (Apple)
+* Automated scraping of **live market prices** from Investing.com.
+* **Cross-browser automation** using Playwright.
+* Graphical representation of prices using **matplotlib**.
+* Exportable **analysis in a text file**.
+* Automatically handles **cookie popups**.
+* Compatible with **Windows, Linux, and macOS**.
 
-NVDA (Nvidia)
+---
 
-TSLA (Tesla)
+## Installation
 
-Features
+1. **Clone the repository**:
 
-Automated scraping of live market prices from Investing.com.
-
-Cross-browser automation using Playwright.
-
-Graphical representation of prices using matplotlib.
-
-Exportable analysis in a text file.
-
-Handles cookie popups automatically.
-
-Works on Windows, Linux, and macOS.
-
-Installation
-
-Clone this repository:
-
+```bash
 git clone <your-repo-url>
 cd <repo-folder>
+```
 
+2. **Create and activate a virtual environment**:
 
-Create and activate a virtual environment:
-
+```bash
+# Windows
 python -m venv .venv
-.venv\Scripts\activate   # Windows
-source .venv/bin/activate # Linux/macOS
+.venv\Scripts\activate
 
+# Linux/macOS
+python -m venv .venv
+source .venv/bin/activate
+```
 
-Install dependencies:
+3. **Install dependencies**:
 
+```bash
 pip install playwright matplotlib
 playwright install
+```
 
-Usage
+---
+
+## Usage
 
 Run the script:
 
+```bash
 python investing_1d_compare.py
+```
 
+### Outputs
 
-Outputs generated:
+* **Bar chart:** `current_comparison.png`
+* **Text summary:** `current_analysis.txt`
 
-Bar chart: current_comparison.png
+**Example terminal output:**
 
-Text summary: current_analysis.txt
-
-Example output in terminal:
-
+```
 MSFT: 195.32 USD
 META: 330.45 USD
 BTC: 35,200 USD
 AAPL: 177.60 USD
 NVDA: 280.75 USD
 TSLA: 265.80 USD
+```
 
-Future Enhancements
+---
 
-Add more stocks and cryptocurrencies dynamically.
+## Future Enhancements
 
-Run periodic updates and track intraday price changes.
-
-Export data to CSV or Excel for further analysis.
-
-Optimize to fetch all symbols in a single browser session for faster execution.
+* Add support for **more stocks and cryptocurrencies** dynamically.
+* Run **periodic updates** and track **intraday price changes**.
+* Export data to **CSV or Excel** for further analysis.
+* Optimize to **fetch all symbols in a single browser session** for faster execution.
