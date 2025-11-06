@@ -92,7 +92,8 @@ TSLA: 265.80 USD
 
 ----------------------------------------------------------------------------------------------
 
-# 2. Windows Temp Files Cleanup Automation
+
+# 2. Windows Temp Files Cleanup Automation (Pyautogui)
 
 **Windows Temp Files Cleanup Automation** is a Python script that uses **PyAutoGUI** to automatically clean up temporary files on Windows. The script simulates keyboard and mouse actions to free up disk space quickly and safely.
 
@@ -180,4 +181,5 @@ python cleanup_temp.py
 * Log deleted files and **disk space freed**.
 * Include **scheduled automatic cleanup**.
 * Add an option to **skip certain folders/files** for safety.
+
 
