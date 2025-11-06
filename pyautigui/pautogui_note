@@ -1,0 +1,104 @@
+## Major operation categories you can do with pyautogui
+
+1. Mouse Control
+import pyautogui
+
+# Move the mouse to coordinates (x=100, y=200)
+pyautogui.moveTo(100, 200, duration=1)
+
+# Move the mouse relative to its current position
+pyautogui.move(50, 0, duration=1)
+
+# Click at the current position
+pyautogui.click()
+
+# Double-click
+pyautogui.doubleClick()
+
+# Right-click
+pyautogui.rightClick()
+
+# Drag and drop
+pyautogui.dragTo(300, 300, duration=2)
+pyautogui.dragRel(50, 0, duration=1)
+
+# Scroll up or down
+pyautogui.scroll(300)   # scroll up
+pyautogui.scroll(-300)  # scroll down
+###################################################################
+
+2. Keyboard Control
+# Type text
+pyautogui.typewrite("Hello, PyAutoGUI!", interval=0.1)
+
+# Press a single key
+pyautogui.press('enter')
+
+# Press key combinations
+pyautogui.hotkey('ctrl', 's')  # CTRL + S (save)
+
+# Hold down and release keys
+pyautogui.keyDown('shift')
+pyautogui.press('a')
+pyautogui.keyUp('shift')  # Types "A"
+########################################################################
+
+3. Screen and Image Recognition
+# Take a screenshot
+screenshot = pyautogui.screenshot()
+screenshot.save("screen.png")
+
+# Get RGB color of a pixel
+color = pyautogui.pixel(100, 200)
+print(color)
+
+# Check if pixel matches a color
+is_same = pyautogui.pixelMatchesColor(100, 200, (255, 255, 255))
+
+# Locate an image on the screen
+button = pyautogui.locateOnScreen("button.png")
+print(button)
+
+# Move to the center of the found image
+if button:
+    pyautogui.moveTo(pyautogui.center(button))
+    pyautogui.click()
+####################################################################
+
+4. Screen Size and Position
+# Get screen resolution
+screen_width, screen_height = pyautogui.size()
+print(screen_width, screen_height)
+
+# Get current mouse position
+x, y = pyautogui.position()
+print(x, y)
+
+# Check if a point is on the screen
+print(pyautogui.onScreen(500, 500))
+##########################################################################
+
+5. Failsafe and Pausing
+# Enable failsafe (move mouse to top-left corner to stop)
+pyautogui.FAILSAFE = True
+
+# Add delay between commands
+pyautogui.PAUSE = 0.5
+################################################################
+
+6. Message Boxes
+pyautogui.alert("This is a simple alert box!")
+pyautogui.confirm("Do you want to continue?", buttons=['Yes', 'No'])
+pyautogui.prompt("Enter your name:")
+########################################################################
+
+7. Automation Patterns
+import pyautogui, time
+
+pyautogui.hotkey('win', 'r')        # Open Run dialog
+time.sleep(1)
+pyautogui.typewrite('notepad\n')    # Open Notepad
+time.sleep(2)
+pyautogui.typewrite('Hello from PyAutoGUI!', interval=0.1)
+##########################################################################
+

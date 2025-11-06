@@ -1,0 +1,354 @@
+# 🧠 **Playwright Operations (with Examples)**
+
+---
+
+## 🪄 1. **Launch and Control Browser**
+
+You can open browsers (Chromium, Firefox, WebKit), create contexts (like separate user sessions), and open pages.
+
+### Example:
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    # Launch browser
+    browser = p.chromium.launch(headless=False)  # set True to hide browser
+    context = browser.new_context()
+    page = context.new_page()
+    
+    # Open a website
+    page.goto("https://example.com")
+    
+    # Close everything
+    browser.close()
+```
+
+---
+
+## 🌍 2. **Navigation and Page Interaction**
+
+Navigate, reload, and wait for elements or URLs.
+
+### Example:
+
+```python
+page.goto("https://example.com")
+page.reload()
+page.go_back()
+page.go_forward()
+page.wait_for_url("**/home")  # Wait for URL to contain "/home"
+```
+
+---
+
+## 🖱️ 3. **Click, Type, and Fill Forms**
+
+Simulate mouse and keyboard input.
+
+### Example:
+
+```python
+# Click a button
+page.click("text=Login")
+
+# Type text into an input field
+page.fill("#username", "myUser")
+page.fill("#password", "mySecretPass")
+
+# Press Enter key
+page.press("#password", "Enter")
+```
+
+---
+
+## 💬 4. **Selectors and Element Handling**
+
+Playwright supports **CSS**, **XPath**, and **text-based** selectors.
+
+### Example:
+
+```python
+# CSS selector
+page.click("button.submit")
+
+# XPath selector
+page.click("//button[contains(text(),'Submit')]")
+
+# Wait for element
+page.wait_for_selector("#success-message")
+
+# Get text or attribute
+text = page.inner_text("#welcome")
+attr = page.get_attribute("#link", "href")
+```
+
+---
+
+## 📸 5. **Screenshots and Videos**
+
+Capture screenshots or record videos.
+
+### Example:
+
+```python
+# Take screenshot of page
+page.screenshot(path="page.png", full_page=True)
+
+# Screenshot of an element
+page.locator("#logo").screenshot(path="logo.png")
+
+# Record video (set when creating context)
+context = browser.new_context(record_video_dir="videos/")
+```
+
+---
+
+## 📄 6. **File Uploads and Downloads**
+
+You can simulate file uploads or handle downloads automatically.
+
+### Example:
+
+```python
+# Upload a file
+page.set_input_files("input[type='file']", "test.txt")
+
+# Handle downloads
+with page.expect_download() as download_info:
+    page.click("text=Download")
+download = download_info.value
+download.save_as("downloaded_file.txt")
+```
+
+---
+
+## 📂 7. **Frames and iFrames**
+
+Interact with content inside `<iframe>` tags.
+
+### Example:
+
+```python
+frame = page.frame(name="myFrame")
+frame.click("button#submit")
+```
+
+---
+
+## 👥 8. **Multiple Tabs / Contexts**
+
+Open multiple pages or browser sessions independently.
+
+### Example:
+
+```python
+page1 = context.new_page()
+page2 = context.new_page()
+
+page1.goto("https://example.com")
+page2.goto("https://google.com")
+```
+
+---
+
+## 🧾 9. **Assertions and Testing**
+
+Built-in Playwright test assertions (useful for automation testing).
+
+### Example:
+
+```python
+from playwright.sync_api import expect
+
+expect(page).to_have_url("https://example.com")
+expect(page.locator("#header")).to_have_text("Welcome")
+```
+
+---
+
+## ⚙️ 10. **Waits and Timeouts**
+
+Wait for conditions, responses, or animations.
+
+### Example:
+
+```python
+page.wait_for_timeout(2000)  # Wait 2 seconds
+page.wait_for_selector("#ready")
+page.wait_for_load_state("networkidle")  # Wait until all requests complete
+```
+
+---
+
+## 🔗 11. **Network Interception and API Mocking**
+
+You can intercept, modify, or block network requests.
+
+### Example:
+
+```python
+def handle_route(route):
+    if "ads" in route.request.url:
+        route.abort()  # block ads
+    else:
+        route.continue_()
+
+page.route("**/*", handle_route)
+page.goto("https://example.com")
+```
+
+---
+
+## 🧠 12. **Evaluate JavaScript in the Page**
+
+Run custom JavaScript code directly inside the browser context.
+
+### Example:
+
+```python
+title = page.evaluate("document.title")
+print(title)
+
+# Return data from JS execution
+links = page.evaluate("""() => {
+    return Array.from(document.querySelectorAll('a')).map(a => a.href)
+}""")
+print(links)
+```
+
+---
+
+## 🔒 13. **Authentication and Cookies**
+
+Handle logins or cookies manually.
+
+### Example:
+
+```python
+# Save session cookies
+cookies = context.cookies()
+context.storage_state(path="session.json")
+
+# Restore session
+context = browser.new_context(storage_state="session.json")
+```
+
+---
+
+## 🧭 14. **Geolocation, Permissions, and User-Agent**
+
+Simulate device conditions or permissions.
+
+### Example:
+
+```python
+context = browser.new_context(
+    geolocation={"latitude": 25.2854, "longitude": 51.5310},  # Qatar
+    permissions=["geolocation"],
+    user_agent="Mozilla/5.0 MyCustomAgent"
+)
+page = context.new_page()
+page.goto("https://maps.google.com")
+```
+
+---
+
+## 🧩 15. **Headless and Headed Mode**
+
+Control visibility of browser.
+
+### Example:
+
+```python
+# Headless mode (invisible)
+p.chromium.launch(headless=True)
+
+# Headed mode (visible)
+p.chromium.launch(headless=False)
+```
+
+---
+
+## 🪞 16. **Keyboard and Mouse Actions**
+
+Advanced control like hover, drag-and-drop, and scrolling.
+
+### Example:
+
+```python
+# Hover
+page.hover("#menu")
+
+# Drag and drop
+page.drag_and_drop("#item", "#target")
+
+# Scroll
+page.mouse.wheel(0, 500)
+```
+
+---
+
+## 🧰 17. **Console, Dialog, and Alert Handling**
+
+Capture alerts, confirmations, and console messages.
+
+### Example:
+
+```python
+# Handle alerts
+page.on("dialog", lambda dialog: dialog.accept())
+
+# Handle console logs
+page.on("console", lambda msg: print(msg.text))
+
+page.goto("https://example.com")
+```
+
+---
+
+## 🧠 18. **Browser Context Emulation (Mobile, Dark Mode, etc.)**
+
+Emulate devices or appearance.
+
+### Example:
+
+```python
+iPhone = p.devices["iPhone 12"]
+context = browser.new_context(**iPhone)
+page = context.new_page()
+page.goto("https://example.com")
+```
+
+---
+
+## 🧾 19. **PDF Generation**
+
+You can export pages directly to PDF.
+
+### Example:
+
+```python
+page.goto("https://example.com")
+page.pdf(path="example.pdf", format="A4")
+```
+
+---
+
+## 🧮 20. **Playwright Test Runner (Optional)**
+
+You can structure automated tests with fixtures and assertions.
+
+### Example (CLI-based test):
+
+```bash
+playwright codegen https://example.com
+```
+
+Or Python test:
+
+```python
+def test_homepage(page):
+    page.goto("https://example.com")
+    assert page.title() == "Example Domain"
+```
