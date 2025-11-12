@@ -24,7 +24,7 @@ time.sleep(2)
 
 # Step 5: Confirm delete (press Enter if confirmation window appears)
 pyautogui.press('enter')
-
+    
 # Optional: close File Explorer
 time.sleep(3)
 pyautogui.hotkey('alt', 'f4')
